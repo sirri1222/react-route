@@ -11,8 +11,9 @@ import Members from "./pages/Members";
 import SongList from "./pages/SongList";
 import Player from "./pages/Player";
 import PlayerIndex from "./pages/PlayerIndex";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+import react from "react";
 const App = () => {
   // 멤버목록 데이터
   // useState 는 state 가 변경되면 실행된느 Hook이다
@@ -45,13 +46,15 @@ const App = () => {
         <Routes>
           {/* <Route path="개발자가 설정한 URL"/> */}
 
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home"/>} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About title="인디밴드" />} />
           <Route path="/members" element={<Members members={members} />} />
           <Route path="/songs" element={<SongList songs={songs} />}>
             <Route index element={<PlayerIndex />} />
             <Route path=":id" element={<Player songs={songs} />}></Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
